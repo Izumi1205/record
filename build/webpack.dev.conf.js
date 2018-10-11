@@ -4,7 +4,7 @@ const baseWebpackConfig = require('./webpack.base.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const webpack = require('webpack');
-const config = require('../config');
+// const config = require('../config');
 
 module.exports = merge(baseWebpackConfig, {
     mode: "development",
@@ -12,9 +12,9 @@ module.exports = merge(baseWebpackConfig, {
         filename: "js/[name].[hash:16].js"
     },
     module: {
-        rules:[
+        rules: [
             {
-                test: /\.(css)$/,
+                test: /.css?$/,
                 exclude: /node_modules/,
                 use: [
                     'style-loader',
@@ -22,30 +22,9 @@ module.exports = merge(baseWebpackConfig, {
                         loader: 'css-loader',
                         options: {
                             modules: true,
-                            importLoaders: 1,
-                            localIdentName: '[local]__[hash:7]'
+                            inportLoaders: 1,
+                            localIdentName: '[local]'
                         }
-                    }
-                ]
-            },
-            {
-                test: /\.less$/,
-                exclude: /node_modules/,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: true,
-                            importLoaders: 1,
-                            localIdentName: '[local]__[hash:7]'
-                        }
-                    },
-                    {
-                        loader: 'less-loader'
-                    },
-                    {
-                        loader: 'postcss-loader'
                     }
                 ]
             }
@@ -53,7 +32,8 @@ module.exports = merge(baseWebpackConfig, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: config.dev.index,
+            // template: config.dev.index,
+            template: './public/index.html',
             inject: "body",
             minify: {
                 html5: true
@@ -63,8 +43,10 @@ module.exports = merge(baseWebpackConfig, {
         new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
-        localhost: config.dev.localhost,
-        port: config.dev.port,
+        // localhost: config.dev.host,
+        // port: config.dev.port,
+        // localhost: 'localhost', // 在webpack4.0 此属性写了会报错
+        port: '8080',
         contentBase: path.join(__dirname, '../public'),
         compress: true,
         historyApiFallback: true,
@@ -72,7 +54,9 @@ module.exports = merge(baseWebpackConfig, {
         https: false,
         noInfo: true,
         open: true,
-        proxy: config.dev.proxyTable,
-        antoOpenBrowser: config.dev.autoOpenBrowser
+        // proxy: config.dev.proxyTable,
+        // antoOpenBrowser: config.dev.autoOpenBrowser
+        proxy: {},
+        // autoOpenBrowser: true, // 在webpack4.0 此属性写了会报错
     }
 });
