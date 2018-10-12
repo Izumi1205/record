@@ -8,7 +8,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 抽离css文
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css文件
 const config = require('../config');
 const utils = require('./utils');
-module.exports = merge(baseWebpackConfig, {
+
+
+const webpackConfig = merge(baseWebpackConfig, {
     mode: 'production',
     output: {
         // filename: "js/[name].[chunkhash:16].js", // 生成的js文件加上hash值
@@ -136,3 +138,17 @@ module.exports = merge(baseWebpackConfig, {
         // }
     }
 });
+// webpack-bundle-analyzer用于打包 output的js文件设计到那些文件打包
+if (config.build.bundleAnalyzerReport) {
+    const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+    webpackConfig.plugins.push(new BundleAnalyzerPlugin);
+}
+// gzip 压缩插件
+if (config.build.productionGzipExtensions) {
+    const CompressionWebpackPlugin = require('compression-webpack-plugin');
+    webpackConfig.plugins.push(new CompressionWebpackPlugin({
+        test: new RegExp('\\.(' + config.build.productionGzipExtensions.join('|') + ')$')
+    }));
+}
+
+module.exports =  webpackConfig;

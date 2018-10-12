@@ -22,6 +22,9 @@ module.exports = {
         assetsRoot: path.resolve(__dirname, '../dist'),
         assetsSubDirectory: 'static',
         assetsPublicPath: './',
-        index: path.resolve(__dirname, '../public/index.html')
+        index: path.resolve(__dirname, '../public/index.html'),
+        productionGzip: true,
+        bundleAnalyzerReport: process.env.npm_config_report,
+        productionGzipExtensions: ['js', 'css'],
     }
 }

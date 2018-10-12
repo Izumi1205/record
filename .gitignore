@@ -8,3 +8,4 @@ dist
 output
 
 .idea/
+package-lock.json

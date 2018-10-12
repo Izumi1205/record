@@ -4,7 +4,7 @@ const baseWebpackConfig = require('./webpack.base.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const webpack = require('webpack');
-// const config = require('../config');
+const config = require('../config');
 
 module.exports = merge(baseWebpackConfig, {
     mode: "development",
@@ -32,8 +32,7 @@ module.exports = merge(baseWebpackConfig, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            // template: config.dev.index,
-            template: './public/index.html',
+            template: config.dev.index,
             inject: "body",
             minify: {
                 html5: true
@@ -43,9 +42,7 @@ module.exports = merge(baseWebpackConfig, {
         new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
-        // localhost: config.dev.host,
-        // port: config.dev.port,
-        // localhost: 'localhost', // 在webpack4.0 此属性写了会报错
+        port: config.dev.port,
         port: '8080',
         contentBase: path.join(__dirname, '../public'),
         compress: true,
@@ -54,9 +51,6 @@ module.exports = merge(baseWebpackConfig, {
         https: false,
         noInfo: true,
         open: true,
-        // proxy: config.dev.proxyTable,
-        // antoOpenBrowser: config.dev.autoOpenBrowser
-        proxy: {},
-        // autoOpenBrowser: true, // 在webpack4.0 此属性写了会报错
+        proxy: config.dev.proxyTable,
     }
 });

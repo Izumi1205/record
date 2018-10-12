@@ -9,9 +9,9 @@ module.exports = {
     },
     output: {
         filename:'js/bundle.js',
-        path: DIST_PATH
-        // path: config.build.assetsRoot,
-        // publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetPublicPath
+        // path: DIST_PATH
+        path: config.build.assetsRoot,
+        publicPath: process.env.NODE_ENV === 'production' ? config.build.assetsPublicPath : config.dev.assetPublicPath
     },
     module: {
         rules: [

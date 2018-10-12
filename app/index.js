@@ -12,8 +12,3 @@ ReactDOM.render(<div>
         <div className="item" >子项目</div>
     </div>
 </div>, bodyId);
-
-
-
-// let element = document.getElementById('root');
-// element.innerHTML = 'helleworld的世界, webpack4.0 + react 架构搭建';
